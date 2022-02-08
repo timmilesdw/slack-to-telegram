@@ -1,0 +1,9 @@
+
+{{ define "text" }}{{ if .Text }}{{ .Text }}{{ else }}{{ .Fallback }}{{ end }}{{ end }}
+
+
+{{ define "message" -}}
+{{ template "text" . }}
+{{- end }}
+
+

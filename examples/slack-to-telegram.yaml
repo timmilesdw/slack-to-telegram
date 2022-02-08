@@ -1,0 +1,9 @@
+server:
+  address: 0.0.0.0:3000
+telegram:
+  token: bot_token
+  defaultChat: 000000000
+  mapChats:
+    general: 111111111
+  disableNotification: true
+template: ./assets/default.tmpl
