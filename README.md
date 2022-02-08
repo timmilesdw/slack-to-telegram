@@ -27,9 +27,14 @@ template: ./assets/default.tmpl
 ```
 
 ## Usage
-
+Docker: 
 ```bash
 docker run -v $PWD/config:/etc/slack-to-telegram timmiles/slack-to-telegram --config /etc/slack-to-telegram/config.yaml
+```
+
+Kubernetes:
+```bash
+kubectl apply -f deploy/k8s
 ```
 
 To change message sent to telegram, modify ```assets/default.tmpl``` and mount it to container, because default.tmpl is 
