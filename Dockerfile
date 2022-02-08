@@ -17,7 +17,7 @@ WORKDIR /bin
 
 COPY --from=builder --chown=1001:1001 /build/slack-to-telegram .
 
-COPY --chown=1001:1001 ./assets/default.tmpl /bin/assets
+COPY --chown=1001:1001 ./assets/default.tmpl /bin/assets/default.tmpl
 
 USER 1001
 
