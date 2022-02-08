@@ -31,3 +31,6 @@ template: ./assets/default.tmpl
 ```bash
 docker run -v $PWD/config:/etc/slack-to-telegram timmiles/slack-to-telegram --config /etc/slack-to-telegram/config.yaml
 ```
+
+To change message sent to telegram, modify ```assets/default.tmpl``` and mount it to container, because default.tmpl is 
+baked into docker image
