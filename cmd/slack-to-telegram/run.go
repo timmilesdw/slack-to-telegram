@@ -27,6 +27,8 @@ func run(logger *logrus.Logger) func(c *cli.Context) error {
 			return err
 		}
 
+		logger.Debug("Loaded configuration")
+
 		template, err := template.NewTemplate(conf.Template)
 		if err != nil {
 			return err
@@ -42,8 +44,10 @@ func run(logger *logrus.Logger) func(c *cli.Context) error {
 		if err != nil {
 			return err
 		}
+		logger.Debug("Created telegram client")
 
 		http := server.NewHttpServer(conf.Server.Address, template, telegram, logger)
+		logger.Debug("Created http server")
 
 		http.SetupRoutes()
 
