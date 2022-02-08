@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: slack-to-telegram
+  name: slack-to-telegram
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slack-to-telegram
+  template:
+    metadata:
+      labels:
+        app: slack-to-telegram
+    spec:
+      containers:
+      - image: timmiles/slack-to-telegram
+        name: slack-to-telegram
+        args:
+          - --config
+          - /etc/slack-to-telegram/config.yaml
+        volumeMounts:
+          - mountPath: /etc/slack-to-telegram
+            name: config
+            readOnly: true
+        ports:
+          - containerPort: 3000
+            name: http
+        resources:
+          limits:
+            memory: 50Mi
+          requests:
+            memory: 50Mi
+      volumes:
+        - name: config
+          secret:
+            secretName: slack-to-telegram
