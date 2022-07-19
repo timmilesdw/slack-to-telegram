@@ -9,13 +9,12 @@ import (
 	"github.com/timmilesdw/slack-to-telegram/template"
 
 	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 type HttpServer struct {
 	address  string
 	router   *mux.Router
-	logger   *logrus.Logger
 	template *template.Template
 	telegram *telegram.TelegramBot
 	server   *http.Server
@@ -25,8 +24,7 @@ func NewHttpServer(
 	address string,
 	template *template.Template,
 	telegram *telegram.TelegramBot,
-	logger *logrus.Logger,
-) HttpServer {
+) *HttpServer {
 	r := mux.NewRouter()
 
 	srv := &http.Server{
@@ -37,8 +35,7 @@ func NewHttpServer(
 		// Handler:      r,
 	}
 
-	return HttpServer{
-		logger:   logger,
+	return &HttpServer{
 		router:   r,
 		address:  address,
 		template: template,
@@ -49,7 +46,6 @@ func NewHttpServer(
 
 func (h *HttpServer) SetupRoutes() {
 	r := h.router
-	log := h.logger
 	r.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		form := r.Form

@@ -3,16 +3,18 @@ package main
 import (
 	"os"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	logger := logrus.New()
+	logger := log.New()
 
-	logger.SetFormatter(&logrus.JSONFormatter{})
+	logger.SetFormatter(&log.JSONFormatter{})
 	logger.SetReportCaller(true)
-	logger.SetLevel(logrus.DebugLevel)
+	// Stderr might cause some problems with docker
+	// logger.SetOutput(os.Stderr)
+	logger.SetOutput(os.Stdout)
 
 	app := cli.App{
 		Name:  "slack-to-telegram",
@@ -24,8 +26,14 @@ func main() {
 				EnvVars:  []string{"STT_CONFIG"},
 				Required: true,
 			},
+			&cli.StringFlag{
+				Name:	"log_level",
+				Aliases:  []string{"log"},
+				EnvVars:  []string{"LOG_LEVEL"},
+				Required: false,
+			},
 		},
-		Action: run(logger),
+		Action: run,
 	}
 
 	if err := app.Run(os.Args); err != nil {
