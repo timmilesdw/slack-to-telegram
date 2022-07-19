@@ -7,3 +7,4 @@ telegram:
     general: 111111111
   disableNotification: true
 template: ./assets/default.tmpl
+log_level: debug
