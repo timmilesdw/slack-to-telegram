@@ -31,9 +31,11 @@ func run(c *cli.Context) error {
 
 	l, err := log.ParseLevel(conf.LogLevel)
 	if err != nil {
-		return errors.Wrap(err, "logrus.ParseLevel")
+		log.Errorf("logrus.ParseLevel: %v")
+	} else {
+		log.SetLevel(l)
 	}
-	log.SetLevel(l)
+	
 
 	template, err := template.NewTemplate(conf.Template)
 	if err != nil {

@@ -9,12 +9,12 @@ import (
 
 func main() {
 	logger := log.New()
-
 	logger.SetFormatter(&log.JSONFormatter{})
 	logger.SetReportCaller(true)
 	// Stderr might cause some problems with docker
 	// logger.SetOutput(os.Stderr)
 	logger.SetOutput(os.Stdout)
+	logger.SetLevel(log.DebugLevel)
 
 	app := cli.App{
 		Name:  "slack-to-telegram",
@@ -27,7 +27,7 @@ func main() {
 				Required: true,
 			},
 			&cli.StringFlag{
-				Name:	"log_level",
+				Name:     "log_level",
 				Aliases:  []string{"log"},
 				EnvVars:  []string{"LOG_LEVEL"},
 				Required: false,
